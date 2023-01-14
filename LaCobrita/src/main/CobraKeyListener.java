@@ -5,10 +5,10 @@ import java.awt.event.KeyListener;
 
 public class CobraKeyListener implements KeyListener{
 	
-	CobraGamePanel gamePanel;
+	Cobra cobra;
 	
-	CobraKeyListener(CobraGamePanel gamePanel){
-		this.gamePanel = gamePanel;
+	CobraKeyListener(Cobra cobra){
+		this.cobra = cobra;
 	}
 
 	@Override
@@ -16,23 +16,23 @@ public class CobraKeyListener implements KeyListener{
 		char c = e.getKeyChar();
 		System.out.println(c);
 		if(c == 'w') {
-			if(gamePanel.direction != "down") {
-				gamePanel.direction = "up";
+			if(cobra.direction != "down") {
+				cobra.direction = "up";
 			}
 		}
 		if(c == 'a') {
-			if(gamePanel.direction != "right") {
-				gamePanel.direction = "left";
+			if(cobra.direction != "right") {
+				cobra.direction = "left";
 			}
 		}
 		if(c == 's') {
-			if(gamePanel.direction != "up") {
-				gamePanel.direction = "down";
+			if(cobra.direction != "up") {
+				cobra.direction = "down";
 			}
 		}
 		if(c == 'd') {
-			if(gamePanel.direction != "left") {
-				gamePanel.direction = "right";
+			if(cobra.direction != "left") {
+				cobra.direction = "right";
 			}
 		}
 		

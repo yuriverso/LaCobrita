@@ -8,13 +8,29 @@ import javax.swing.JPanel;
 
 public class CobraGamePanel extends JPanel implements Runnable{
 	
-	int WIDTH = 800;
-	int HEIGHT = 600;
-	int cobraX, cobraY, cobraWidth, cobraHeight;
 	int FPS = 60;
-	String direction;
+	int speed = 4;
 	
-	CobraKeyListener CKL = new CobraKeyListener(this);
+	final int WIDTH = 800;
+	final int HEIGHT = 600;
+	final int tileSize = 20;
+	
+	final int rows = WIDTH/tileSize;
+	final int cols = HEIGHT/tileSize;
+	final int tiles = rows*cols;
+	
+	int coordsX[] = new int[rows];
+	int coordsY[] = new int[cols];
+	
+	//cobra 
+	Cobra cobra;
+	
+	//apple
+	Apple apple;
+	
+	CobraKeyListener CKL;
+	
+	
 	Thread gameThread;
 	
 	
@@ -23,65 +39,42 @@ public class CobraGamePanel extends JPanel implements Runnable{
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setBackground(Color.black);
 		this.setFocusable(true);
+		
+		
+		fillCoordArray();
+		cobra = new Cobra(this, coordsX, coordsY);
+		apple = new Apple(this, coordsX, coordsY);
+		
+		CKL  = new CobraKeyListener(cobra);
 		this.addKeyListener(CKL);
-
-		setDefaultValues();
 		
 	}
+	
 	public void update() {
-		switch(direction) {
-		case "up":
-			cobraY -= 3;
-			if(cobraY <= 0 - cobraHeight) {
-				cobraY = HEIGHT;
-			}
-			break;
-		case "down":
-			cobraY += 3;
-			if(cobraY >= HEIGHT + cobraHeight) {
-				cobraY = -cobraHeight;
-			}
-			break;
-		case "left":
-			cobraX -= 3;
-			if(cobraX <= 0 - cobraWidth) {
-				cobraX = WIDTH + cobraWidth;
-			}
-			break;
-		case "right":
-			cobraX += 3;
-			if(cobraX >= WIDTH + cobraWidth) {
-				cobraX = -cobraWidth;
-			}
-			break;
-		}
+		cobra.update();
 	}
 	
-	public void setDefaultValues() {
-		cobraWidth = 40;
-		cobraHeight = 40;
-		cobraX = cobraWidth * 3;
-		cobraY = cobraHeight * 3;
-		direction = "down";
-	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(new Color(30,30,30));
+		
 		drawGrid(g);
-		g.setColor(Color.green);
-		g.drawRect(cobraX, cobraY, cobraWidth, cobraHeight);
+		
+		apple.draw(g);
+		cobra.draw(g);
+		
 	}
 	
 	public void drawGrid(Graphics g) {
-		int rows = WIDTH/cobraWidth;
-		int cols = HEIGHT/cobraHeight;
+		int rows = WIDTH/tileSize;
+		int cols = HEIGHT/tileSize;
 		
+		g.setColor(new Color(30,30,30));
 		for(int i = 0;i<=rows;i++) {
-			g.drawLine(i*cobraWidth, 0, i*cobraWidth, HEIGHT);
+			g.drawLine(i*tileSize, 0, i*tileSize, HEIGHT);
 		}
 		for(int i = 0;i<=cols;i++) {
-			g.drawLine(0, i*cobraHeight, WIDTH, i*cobraHeight);
+			g.drawLine(0, i*tileSize, WIDTH, i*tileSize);
 		}
 	}
 	
@@ -102,16 +95,16 @@ public class CobraGamePanel extends JPanel implements Runnable{
 			timer += (currentTime - lastTime);
 			lastTime = currentTime;
 			
-			if (delta >= 1) {
+			if (delta >= 10-speed) {
 				update();
 				repaint();
 				
-				delta--;
+				delta-=10-speed;
 				drawCount++;
 			}
 			
 			if(timer >= 1000000000) {
-				System.out.println("FPS: "+drawCount);
+				//System.out.println("FPS: "+drawCount);
 				drawCount = 0;
 				timer = 0;
 			}
@@ -123,6 +116,24 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
+	}
+	
+	public void fillCoordArray() {
+		
+		for(int i = 0; i<rows; i++) {
+			coordsX[i] = i*tileSize;
+		}
+		
+		for(int i = 0; i<cols; i++) {
+			coordsY[i] = i*tileSize;
+		}
+		
+	}
+	
+	public void printC() {
+		for(int i : coordsX) {
+			
+		}
 	}
 	
 }
