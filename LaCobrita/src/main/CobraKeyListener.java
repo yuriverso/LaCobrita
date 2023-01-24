@@ -14,26 +14,40 @@ public class CobraKeyListener implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
-		if(c == 'w') {
-			if(cobra.direction != "down") {
-				cobra.direction = "up";
+		System.out.println(c);
+		if(!cobra.gamePanel.paused) {
+			if(c == 'w') {
+				if(cobra.direction != "down") {
+					cobra.direction = "up";
+				}
+			}
+			if(c == 'a') {
+				if(cobra.direction != "right") {
+					cobra.direction = "left";
+				}
+			}
+			if(c == 's') {
+				if(cobra.direction != "up") {
+					cobra.direction = "down";
+				}
+			}
+			if(c == 'd') {
+				if(cobra.direction != "left") {
+					cobra.direction = "right";
+				}
 			}
 		}
-		if(c == 'a') {
-			if(cobra.direction != "right") {
-				cobra.direction = "left";
+		
+		if(c == '\n' || c == '') {
+			System.out.println(cobra.gamePanel.paused);
+			if(cobra.gamePanel.paused == false) {
+				cobra.gamePanel.paused = true;
+			}else if(cobra.gamePanel.paused == true) {
+				cobra.gamePanel.paused = false;
 			}
 		}
-		if(c == 's') {
-			if(cobra.direction != "up") {
-				cobra.direction = "down";
-			}
-		}
-		if(c == 'd') {
-			if(cobra.direction != "left") {
-				cobra.direction = "right";
-			}
-		}
+			
+		
 		
 	}
 

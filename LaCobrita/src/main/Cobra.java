@@ -14,9 +14,8 @@ public class Cobra {
 	int x, y;
 	int cobraX, cobraY;
 	public String direction;
-	CobraKeyListener CKL;
 	
-	int [][] cobraTiles = new int[3][2];
+	int [][] cobraTiles;
 	int[][] cobraTilesCopy;
 
 	Cobra(CobraGamePanel gamePanel, int[] coordsX, int[] coordsY){
@@ -35,6 +34,7 @@ public class Cobra {
 		cobraX = coordsX[x];
 		cobraY = coordsY[y];
 		
+		cobraTiles = new int[3][2];
 		int[] posZero = {cobraX, cobraY};
 		int[] posOne = {coordsX[x], coordsY[y-1]};
 		int[] posTwo = {coordsX[x], coordsY[y-2]};
@@ -45,48 +45,53 @@ public class Cobra {
 	}
 	
 	public void update() {
-		switch(direction) {
-		case "up":
-			y--;
-			if(y<0) {
-				y = 29;
+		if(gamePanel.paused) {
+			
+		}else {
+			switch(direction) {
+			case "up":
+				y--;
+				if(y<0) {
+					y = 29;
+				}
+				break;
+			case "down":
+				y++;
+				if(y>29) {
+					y=0;
+				}
+				break;
+			case "left":
+				x--;
+				if(x<0) {
+					x=39;
+				}
+				break;
+			case "right":
+				x++;
+				if(x > 39) {
+					x=0;
+				}
+				break;
 			}
-			break;
-		case "down":
-			y++;
-			if(y>29) {
-				y=0;
+			cobraX = coordsX[x];
+			cobraY = coordsY[y];
+			int[] currentTile = {cobraX, cobraY};
+			checkCollision(currentTile);
+			slither(currentTile);
+			
+			// apple eaten
+			if(cobraX == gamePanel.apple.appleX && cobraY == gamePanel.apple.appleY) {
+				gamePanel.score();
+				grow(currentTile);
 			}
-			break;
-		case "left":
-			x--;
-			if(x<0) {
-				x=39;
-			}
-			break;
-		case "right":
-			x++;
-			if(x > 39) {
-				x=0;
-			}
-			break;
 		}
-		cobraX = coordsX[x];
-		cobraY = coordsY[y];
-		int[] currentTile = {cobraX, cobraY};
-		checkCollision(currentTile);
-		slither(currentTile);
 		
-		// apple eaten
-		if(cobraX == gamePanel.apple.appleX && cobraY == gamePanel.apple.appleY) {
-			gamePanel.score();
-			grow(currentTile);
-		}
 		
 	}
 	
-	public void draw(Graphics g) {
-		g.setColor(Color.green);
+	public void draw(Graphics g, Color color) {
+		g.setColor(color);
 		for(int[] tile : cobraTiles) {
 			g.drawRect(tile[0], tile[1], gamePanel.tileSize, gamePanel.tileSize);
 		}
@@ -116,7 +121,7 @@ public class Cobra {
 	public void checkCollision(int[] currentTile) {
 		for(int i = 0; i < cobraTiles.length; i++) {
 			if(cobraTiles[i][0] == currentTile[0] && cobraTiles[i][1] == currentTile[1]) {
-				System.out.println("colisao");
+				gamePanel.gameOver();
 			}
 		}
 	}

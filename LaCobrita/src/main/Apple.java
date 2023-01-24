@@ -23,8 +23,8 @@ public class Apple {
 	}
 	
 	
-	public void draw(Graphics g) {
-		g.setColor(Color.red);
+	public void draw(Graphics g, Color color) {
+		g.setColor(color);
 		g.drawRect(appleX, appleY, gamePanel.tileSize, gamePanel.tileSize);
 	}
 	

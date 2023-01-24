@@ -22,7 +22,12 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	int coordsX[] = new int[rows];
 	int coordsY[] = new int[cols];
 	
+	public boolean paused = false;
+	
 	int score = 0;
+	
+	//frame
+	CobraFrame frame;
 	
 	//cobra 
 	Cobra cobra;
@@ -30,22 +35,26 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	//apple
 	Apple apple;
 	
+	//pause screen
+	PausePanel pauseP;
 	CobraKeyListener CKL;
-	
 	
 	Thread gameThread;
 	
 	
-	CobraGamePanel(){
-		
-		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+	CobraGamePanel(CobraFrame frame){
+		this.frame = frame;
+		this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		this.setBackground(Color.black);
 		this.setFocusable(true);
+		setLayout(null);
 		
 		
 		fillCoordArray();
 		cobra = new Cobra(this, coordsX, coordsY);
 		apple = new Apple(this, coordsX, coordsY);
+		pauseP = new PausePanel(this);
+		this.add(pauseP);
 		
 		CKL  = new CobraKeyListener(cobra);
 		this.addKeyListener(CKL);
@@ -53,25 +62,40 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	}
 	
 	public void update() {
-		cobra.update();
+		if(paused) {
+			pauseP.setVisible(true);
+			
+		}else {
+			pauseP.setVisible(false);
+			
+			cobra.update();
+		}
+		
 	}
 	
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		if(paused) {
+			drawGrid(g, new Color(15,15,15));
+			apple.draw(g, new Color(80, 0, 0));
+			cobra.draw(g, new Color(0, 80, 0));
+			
+		}else {
+			drawGrid(g, new Color(30,30,30));
+			apple.draw(g, Color.red);
+			cobra.draw(g, Color.green);
+		}
 		
-		drawGrid(g);
 		
-		apple.draw(g);
-		cobra.draw(g);
 		
 	}
 	
-	public void drawGrid(Graphics g) {
+	public void drawGrid(Graphics g, Color color) {
 		int rows = WIDTH/tileSize;
 		int cols = HEIGHT/tileSize;
 		
-		g.setColor(new Color(30,30,30));
+		g.setColor(color);
 		for(int i = 0;i<=rows;i++) {
 			g.drawLine(i*tileSize, 0, i*tileSize, HEIGHT);
 		}
@@ -136,6 +160,22 @@ public class CobraGamePanel extends JPanel implements Runnable{
 		score++;
 		System.out.println("Marcou um ponto! Pontuação: "+score);
 		apple = new Apple(this, coordsX, coordsY);
+	}
+	
+	public void gameOver() {
+		frame.gameOver();
+		score = 0;
+		cobra.setDefaultValues();
+		setVisible(false);
+		//frame.menuPanel.setVisible(true);
+		gameThread.stop();	
+	}
+	
+	public void mainMenu() {
+		frame.mainMenu();
+		score = 0;
+		cobra.setDefaultValues();
+		gameThread.stop();
 	}
 	
 }
