@@ -17,15 +17,15 @@ public class Apple {
 		this.gamePanel = gamePanel;
 		this.coordsX = coordsX;
 		this.coordsY = coordsY;
-		appleX = random.nextInt(40);
-		appleY = random.nextInt(30);
+		appleX = coordsX[random.nextInt(40)];
+		appleY = coordsY[random.nextInt(30)];
 		
 	}
 	
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.red);
-		g.drawRect(coordsX[appleX], coordsY[appleY], gamePanel.tileSize, gamePanel.tileSize);
+		g.drawRect(appleX, appleY, gamePanel.tileSize, gamePanel.tileSize);
 	}
 	
 	

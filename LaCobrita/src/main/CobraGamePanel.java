@@ -22,6 +22,8 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	int coordsX[] = new int[rows];
 	int coordsY[] = new int[cols];
 	
+	int score = 0;
+	
 	//cobra 
 	Cobra cobra;
 	
@@ -130,10 +132,10 @@ public class CobraGamePanel extends JPanel implements Runnable{
 		
 	}
 	
-	public void printC() {
-		for(int i : coordsX) {
-			
-		}
+	public void score() {
+		score++;
+		System.out.println("Marcou um ponto! Pontuação: "+score);
+		apple = new Apple(this, coordsX, coordsY);
 	}
 	
 }

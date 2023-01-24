@@ -14,7 +14,6 @@ public class CobraKeyListener implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
-		System.out.println(c);
 		if(c == 'w') {
 			if(cobra.direction != "down") {
 				cobra.direction = "up";
