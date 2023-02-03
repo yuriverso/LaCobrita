@@ -13,6 +13,7 @@ public class Cobra {
 	
 	int x, y;
 	int cobraX, cobraY;
+	int timeSinceTurn;
 	public String direction;
 	
 	int [][] cobraTiles;
@@ -29,6 +30,7 @@ public class Cobra {
 	
 	public void setDefaultValues() {
 		direction = "down";
+		timeSinceTurn = 0;
 		x = 3;
 		y = 3;
 		cobraX = coordsX[x];

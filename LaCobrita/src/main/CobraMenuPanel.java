@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class CobraMenuPanel extends JPanel implements ActionListener{
 
 	CobraFrame frame;
-	JButton startButton, button1, button2, button3;
+	JButton startButton, optionsButton, exitButton;
 	
 
 	
@@ -24,9 +24,19 @@ public class CobraMenuPanel extends JPanel implements ActionListener{
 		setLayout(null);
 		
 		startButton = new JButton("Start");
-		startButton.setBounds(50,100, 700, 400);
+		startButton.setBounds(50,100, 700, 100);
 		startButton.addActionListener(this);
 		add(startButton);
+		
+		optionsButton = new JButton("Options");
+		optionsButton.setBounds(50,250, 700, 100);
+		optionsButton.addActionListener(this);
+		add(optionsButton);
+		
+		exitButton = new JButton("Exit");
+		exitButton.setBounds(50,400, 700, 100);
+		exitButton.addActionListener(this);
+		add(exitButton);
 
 		
 	}
@@ -35,12 +45,19 @@ public class CobraMenuPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == startButton) {
 			setVisible(false);
-			frame.remove(frame.gamePanel);
-			frame.gamePanel = new CobraGamePanel(frame);
 			frame.add(frame.gamePanel);
 			frame.gamePanel.setVisible(true);
 			frame.gamePanel.requestFocus();
 			frame.gamePanel.startGameThread();
+		}
+		if(e.getSource() == optionsButton) {
+			setVisible(false);
+			frame.remove(frame.opsPanel);
+			frame.add(frame.opsPanel);
+			frame.opsPanel.setVisible(true);
+		}
+		if(e.getSource() == exitButton) {
+			System.exit(0);
 		}
 		
 	}

@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 public class PausePanel extends JPanel implements ActionListener{
 
 	CobraGamePanel gamePanel;
-	JButton goOn, toMenu;
+	JButton goOnButton, toMenuButton, exitButton;
 	
 	PausePanel(CobraGamePanel gamePanel){
 		this.gamePanel = gamePanel;
@@ -21,27 +21,37 @@ public class PausePanel extends JPanel implements ActionListener{
 		setLayout(null);
 		//setFocusable(false);
 		
-		goOn = new JButton("Continue");
-		goOn.setBounds(50, 50, 300, 100);
-		goOn.setFocusable(false);
-		goOn.addActionListener(this);
-		add(goOn);
+		goOnButton = new JButton("Continue");
+		goOnButton.setBounds(50, 50, 300, 100);
+		goOnButton.setFocusable(false);
+		goOnButton.addActionListener(this);
+		add(goOnButton);
 		
-		toMenu = new JButton("Main Menu");
-		toMenu.setBounds(50, 150, 300, 100);
-		toMenu.setFocusable(false);
-		toMenu.addActionListener(this);
-		add(toMenu);
+		toMenuButton = new JButton("Main Menu");
+		toMenuButton.setBounds(50, 150, 300, 100);
+		toMenuButton.setFocusable(false);
+		toMenuButton.addActionListener(this);
+		add(toMenuButton);
+		
+		exitButton = new JButton("Exit");
+		exitButton.setBounds(50, 250, 300, 100);
+		exitButton.setFocusable(false);
+		exitButton.addActionListener(this);
+		add(exitButton);
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == goOn) {
+		if(e.getSource() == goOnButton) {
 			gamePanel.paused = false;
 		}
-		if(e.getSource() == toMenu) {
+		if(e.getSource() == toMenuButton) {
 			gamePanel.mainMenu();
+			
+		}
+		if(e.getSource() == exitButton) {
+			System.exit(0);
 			
 		}
 		

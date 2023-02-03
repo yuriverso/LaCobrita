@@ -14,6 +14,7 @@ public class CobraFrame extends JFrame{
 	
 	CobraGamePanel gamePanel;
 	CobraMenuPanel menuPanel;
+	CobraOptionsPanel opsPanel;
 	CobraGOPanel goPanel;
 
 	CobraFrame(){
@@ -24,6 +25,7 @@ public class CobraFrame extends JFrame{
 		menuPanel = new CobraMenuPanel(this);
 		goPanel = new CobraGOPanel(this);
 		gamePanel = new CobraGamePanel(this);
+		opsPanel = new CobraOptionsPanel(this);
 		
 		add(menuPanel);
 		

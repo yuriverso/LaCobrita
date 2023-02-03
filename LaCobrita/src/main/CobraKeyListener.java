@@ -16,26 +16,27 @@ public class CobraKeyListener implements KeyListener{
 		char c = e.getKeyChar();
 		System.out.println(c);
 		if(!cobra.gamePanel.paused) {
-			if(c == 'w') {
+			if(c == 'w' && cobra.timeSinceTurn > 0) {
 				if(cobra.direction != "down") {
 					cobra.direction = "up";
 				}
 			}
-			if(c == 'a') {
+			if(c == 'a' && cobra.timeSinceTurn > 0) {
 				if(cobra.direction != "right") {
 					cobra.direction = "left";
 				}
 			}
-			if(c == 's') {
+			if(c == 's' && cobra.timeSinceTurn > 0) {
 				if(cobra.direction != "up") {
 					cobra.direction = "down";
 				}
 			}
-			if(c == 'd') {
+			if(c == 'd' && cobra.timeSinceTurn > 0) {
 				if(cobra.direction != "left") {
 					cobra.direction = "right";
 				}
 			}
+			cobra.timeSinceTurn = 0;
 		}
 		
 		if(c == '\n' || c == '') {

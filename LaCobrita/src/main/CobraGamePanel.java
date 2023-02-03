@@ -2,19 +2,19 @@ package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class CobraGamePanel extends JPanel implements Runnable{
 	
 	int FPS = 60;
 	int speed = 4;
-	
 	final int WIDTH = 800;
 	final int HEIGHT = 600;
 	final int tileSize = 20;
-	
 	final int rows = WIDTH/tileSize;
 	final int cols = HEIGHT/tileSize;
 	final int tiles = rows*cols;
@@ -25,7 +25,7 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	public boolean paused = false;
 	
 	int score = 0;
-	
+
 	//frame
 	CobraFrame frame;
 	
@@ -37,6 +37,7 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	
 	//pause screen
 	PausePanel pauseP;
+	
 	CobraKeyListener CKL;
 	
 	Thread gameThread;
@@ -55,6 +56,7 @@ public class CobraGamePanel extends JPanel implements Runnable{
 		apple = new Apple(this, coordsX, coordsY);
 		pauseP = new PausePanel(this);
 		this.add(pauseP);
+		
 		
 		CKL  = new CobraKeyListener(cobra);
 		this.addKeyListener(CKL);
@@ -85,6 +87,8 @@ public class CobraGamePanel extends JPanel implements Runnable{
 			drawGrid(g, new Color(30,30,30));
 			apple.draw(g, Color.red);
 			cobra.draw(g, Color.green);
+			drawScore(g, Color.white);
+			
 		}
 		
 		
@@ -111,14 +115,11 @@ public class CobraGamePanel extends JPanel implements Runnable{
 		double delta = 0;
 		long lastTime = System.nanoTime();
 		long currentTime;
-		//show fps
-		long timer = 0;
-		int drawCount = 0;
+
 		
 		while(gameThread != null) {
 			currentTime = System.nanoTime();
 			delta += (currentTime - lastTime) / drawInterval;
-			timer += (currentTime - lastTime);
 			lastTime = currentTime;
 			
 			if (delta >= 10-speed) {
@@ -126,13 +127,7 @@ public class CobraGamePanel extends JPanel implements Runnable{
 				repaint();
 				
 				delta-=10-speed;
-				drawCount++;
-			}
-			
-			if(timer >= 1000000000) {
-				//System.out.println("FPS: "+drawCount);
-				drawCount = 0;
-				timer = 0;
+				cobra.timeSinceTurn++;
 			}
 
 		}
@@ -176,6 +171,12 @@ public class CobraGamePanel extends JPanel implements Runnable{
 		score = 0;
 		cobra.setDefaultValues();
 		gameThread.stop();
+	}
+
+	public void drawScore(Graphics g, Color color) {
+		g.setColor(color);
+		g.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
+		g.drawString(String.valueOf(score), 760, 20);
 	}
 	
 }
