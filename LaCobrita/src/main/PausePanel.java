@@ -48,7 +48,7 @@ public class PausePanel extends JPanel implements ActionListener{
 		}
 		if(e.getSource() == toMenuButton) {
 			gamePanel.mainMenu();
-			
+			gamePanel.paused = false;
 		}
 		if(e.getSource() == exitButton) {
 			System.exit(0);

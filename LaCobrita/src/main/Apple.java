@@ -17,15 +17,25 @@ public class Apple {
 		this.gamePanel = gamePanel;
 		this.coordsX = coordsX;
 		this.coordsY = coordsY;
-		appleX = coordsX[random.nextInt(40)];
-		appleY = coordsY[random.nextInt(30)];
+
+		generateCoordinates();
 		
 	}
 	
 	
 	public void draw(Graphics g, Color color) {
 		g.setColor(color);
-		g.drawRect(appleX, appleY, gamePanel.tileSize, gamePanel.tileSize);
+		g.fillRect(appleX, appleY, gamePanel.tileSize, gamePanel.tileSize);
+	}
+	
+	public void generateCoordinates() {
+		if(gamePanel.gameMode == "walled") {
+			appleX = coordsX[random.nextInt(38)+1];
+			appleY = coordsY[random.nextInt(28)+1];
+		}else {
+			appleX = coordsX[random.nextInt(40)];
+			appleY = coordsY[random.nextInt(30)];
+		}
 	}
 	
 	

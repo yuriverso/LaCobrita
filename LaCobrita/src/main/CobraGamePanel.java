@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 public class CobraGamePanel extends JPanel implements Runnable{
 	
 	int FPS = 60;
-	int speed = 4;
+	int speed = 5;
 	final int WIDTH = 800;
 	final int HEIGHT = 600;
 	final int tileSize = 20;
@@ -25,6 +25,8 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	public boolean paused = false;
 	
 	int score = 0;
+	
+	String gameMode = "free";
 
 	//frame
 	CobraFrame frame;
@@ -78,15 +80,18 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		if(gameMode == "walled") {
+			drawWalls(g, new Color(0, 60, 0));
+		}
 		if(paused) {
 			drawGrid(g, new Color(15,15,15));
 			apple.draw(g, new Color(80, 0, 0));
 			cobra.draw(g, new Color(0, 80, 0));
 			
 		}else {
+			apple.draw(g, new Color(190, 0, 0));
+			cobra.draw(g, new Color(0, 130, 0));
 			drawGrid(g, new Color(30,30,30));
-			apple.draw(g, Color.red);
-			cobra.draw(g, Color.green);
 			drawScore(g, Color.white);
 			
 		}
@@ -106,6 +111,14 @@ public class CobraGamePanel extends JPanel implements Runnable{
 		for(int i = 0;i<=cols;i++) {
 			g.drawLine(0, i*tileSize, WIDTH, i*tileSize);
 		}
+	}
+	
+	public void drawWalls(Graphics g, Color color) {
+		g.setColor(color);
+		g.fillRect(0, 0, WIDTH, tileSize);
+		g.fillRect(0, 0, tileSize, HEIGHT);
+		g.fillRect(WIDTH-tileSize, 0, tileSize, HEIGHT);
+		g.fillRect(0, HEIGHT-tileSize, WIDTH, 20);
 	}
 	
 	@Override
@@ -152,8 +165,7 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	}
 	
 	public void score() {
-		score++;
-		System.out.println("Marcou um ponto! Pontuação: "+score);
+		score += speed+1;
 		apple = new Apple(this, coordsX, coordsY);
 	}
 	

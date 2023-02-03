@@ -14,7 +14,6 @@ public class CobraKeyListener implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
-		System.out.println(c);
 		if(!cobra.gamePanel.paused) {
 			if(c == 'w' && cobra.timeSinceTurn > 0) {
 				if(cobra.direction != "down") {
@@ -40,7 +39,6 @@ public class CobraKeyListener implements KeyListener{
 		}
 		
 		if(c == '\n' || c == '') {
-			System.out.println(cobra.gamePanel.paused);
 			if(cobra.gamePanel.paused == false) {
 				cobra.gamePanel.paused = true;
 			}else if(cobra.gamePanel.paused == true) {

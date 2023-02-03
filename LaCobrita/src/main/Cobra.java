@@ -53,26 +53,56 @@ public class Cobra {
 			switch(direction) {
 			case "up":
 				y--;
-				if(y<0) {
-					y = 29;
+				if(y<1) {
+					if(gamePanel.gameMode == "walled") {
+						gamePanel.gameOver();
+					}
+					else {
+						if(y<0) {
+							y = 29;
+						}
+					}
+					
 				}
 				break;
 			case "down":
 				y++;
-				if(y>29) {
-					y=0;
+				if(y>28) {
+					if(gamePanel.gameMode == "walled") {
+						gamePanel.gameOver();
+					}
+					else {
+						if(y<29) {
+							y=0;
+						}
+					}
+					
 				}
 				break;
 			case "left":
 				x--;
-				if(x<0) {
-					x=39;
+				if(x<1) {
+					if(gamePanel.gameMode == "walled") {
+						gamePanel.gameOver();
+					}
+					else {
+						if(x<0) {
+							x = 39;
+						}
+					}
 				}
 				break;
 			case "right":
 				x++;
-				if(x > 39) {
-					x=0;
+				if(x > 38) {
+					if(gamePanel.gameMode == "walled") {
+						gamePanel.gameOver();
+					}
+					else {
+						if(x > 39) {
+							x = 0;
+						}
+					}
 				}
 				break;
 			}
@@ -95,7 +125,7 @@ public class Cobra {
 	public void draw(Graphics g, Color color) {
 		g.setColor(color);
 		for(int[] tile : cobraTiles) {
-			g.drawRect(tile[0], tile[1], gamePanel.tileSize, gamePanel.tileSize);
+			g.fillRect(tile[0], tile[1], gamePanel.tileSize, gamePanel.tileSize);
 		}
 
 	}

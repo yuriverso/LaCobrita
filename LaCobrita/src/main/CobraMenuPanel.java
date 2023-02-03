@@ -44,6 +44,7 @@ public class CobraMenuPanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == startButton) {
+			frame.gamePanel.pauseP.setVisible(false);
 			setVisible(false);
 			frame.add(frame.gamePanel);
 			frame.gamePanel.setVisible(true);
