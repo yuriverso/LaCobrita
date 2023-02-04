@@ -54,7 +54,7 @@ public class Cobra {
 			case "up":
 				y--;
 				if(y<1) {
-					if(gamePanel.gameMode == "walled") {
+					if(gamePanel.gameMode == "wall") {
 						gamePanel.gameOver();
 					}
 					else {
@@ -68,7 +68,7 @@ public class Cobra {
 			case "down":
 				y++;
 				if(y>28) {
-					if(gamePanel.gameMode == "walled") {
+					if(gamePanel.gameMode == "wall") {
 						gamePanel.gameOver();
 					}
 					else {
@@ -82,7 +82,7 @@ public class Cobra {
 			case "left":
 				x--;
 				if(x<1) {
-					if(gamePanel.gameMode == "walled") {
+					if(gamePanel.gameMode == "wall") {
 						gamePanel.gameOver();
 					}
 					else {
@@ -95,7 +95,7 @@ public class Cobra {
 			case "right":
 				x++;
 				if(x > 38) {
-					if(gamePanel.gameMode == "walled") {
+					if(gamePanel.gameMode == "wall") {
 						gamePanel.gameOver();
 					}
 					else {

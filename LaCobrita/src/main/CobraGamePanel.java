@@ -48,7 +48,7 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	CobraGamePanel(CobraFrame frame){
 		this.frame = frame;
 		this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-		this.setBackground(Color.black);
+		this.setBackground(new Color(0, 30, 0));
 		this.setFocusable(true);
 		setLayout(null);
 		
@@ -80,13 +80,14 @@ public class CobraGamePanel extends JPanel implements Runnable{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if(gameMode == "walled") {
-			drawWalls(g, new Color(0, 60, 0));
+		if(gameMode == "wall") {
+			drawWalls(g, new Color(102, 51, 0));
 		}
 		if(paused) {
-			drawGrid(g, new Color(15,15,15));
 			apple.draw(g, new Color(80, 0, 0));
 			cobra.draw(g, new Color(0, 80, 0));
+			drawGrid(g, new Color(15,15,15));
+			drawScore(g, new Color(60, 60, 60));
 			
 		}else {
 			apple.draw(g, new Color(190, 0, 0));

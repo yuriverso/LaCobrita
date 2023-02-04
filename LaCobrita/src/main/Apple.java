@@ -29,7 +29,7 @@ public class Apple {
 	}
 	
 	public void generateCoordinates() {
-		if(gamePanel.gameMode == "walled") {
+		if(gamePanel.gameMode == "wall") {
 			appleX = coordsX[random.nextInt(38)+1];
 			appleY = coordsY[random.nextInt(28)+1];
 		}else {

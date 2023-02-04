@@ -38,6 +38,7 @@ public class CobraFrame extends JFrame{
 	public void gameOver() {
 		menuPanel.setVisible(false);
 		goPanel.setVisible(true);
+		goPanel.scoreLabel.setText("Score: "+gamePanel.score);
 		remove(goPanel);
 		add(goPanel);
 	}
