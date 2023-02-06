@@ -1,4 +1,4 @@
 # LaCobrita
 A snake game
 
-Currently in progress.
+Clássico jogo da cobrinha feito com a biblioteca Swing do Java.
