@@ -16,6 +16,7 @@ public class CobraGOPanel extends JPanel implements ActionListener{
 	CobraFrame frame;
 	JLabel gameOverLabel, scoreLabel;
 	JButton restartButton, mainMenuButton, exitButton;
+	HighscoresPanel highscoresPanel;
 	
 	CobraGOPanel(CobraFrame frame){
 		this.frame = frame;
@@ -53,15 +54,18 @@ public class CobraGOPanel extends JPanel implements ActionListener{
 		gameOverLabel.setFont(font2);
 		gameOverLabel.setForeground(Color.white);
 		gameOverLabel.setHorizontalAlignment(JLabel.CENTER);
-		gameOverLabel.setBounds(150,30, 500, 100);
+		gameOverLabel.setBounds(150, 0, 500, 60);
 		add(gameOverLabel);
 		
 		scoreLabel = new JLabel();
 		scoreLabel.setFont(font2);
 		scoreLabel.setForeground(Color.white);
 		scoreLabel.setHorizontalAlignment(JLabel.CENTER);
-		scoreLabel.setBounds(150,180, 500, 100);
+		scoreLabel.setBounds(150, 60, 500, 60);
 		add(scoreLabel);
+		
+		highscoresPanel = new HighscoresPanel(frame);
+		add(highscoresPanel);
 		
 		restartButton = new JButton("Restart");
 		restartButton.setFont(font);

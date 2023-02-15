@@ -1,14 +1,9 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
+
+import jdbc.CobraConnection;
+import jdbc.CobraJDBC;
 
 public class CobraFrame extends JFrame{
 	
@@ -16,11 +11,14 @@ public class CobraFrame extends JFrame{
 	CobraMenuPanel menuPanel;
 	CobraOptionsPanel opsPanel;
 	CobraGOPanel goPanel;
+	CobraJDBC cobraJDBC;
 
 	CobraFrame(){
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("La Cobrita");
+		
+		cobraJDBC = new CobraJDBC(CobraConnection.getConnection());
 		
 		menuPanel = new CobraMenuPanel(this);
 		goPanel = new CobraGOPanel(this);

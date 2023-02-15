@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.time.LocalDateTime;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import jdbc.Score;
 
 public class CobraGamePanel extends JPanel implements Runnable{
 	
@@ -170,7 +172,19 @@ public class CobraGamePanel extends JPanel implements Runnable{
 		apple = new Apple(this, coordsX, coordsY);
 	}
 	
+	private void addScore() {
+		Score score = new Score();
+		score.setNome(frame.menuPanel.playerField.getText());
+		score.setScore(this.score);
+		score.setDate(LocalDateTime.now());
+		score.setSpeed(speed);
+		score.setMode(gameMode);
+		frame.cobraJDBC.addScore(score);
+	}
+	
 	public void gameOver() {
+		addScore();
+		frame.goPanel.highscoresPanel.fillPanel();
 		frame.gameOver();
 		score = 0;
 		cobra.setDefaultValues();
